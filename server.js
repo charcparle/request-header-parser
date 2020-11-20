@@ -5,6 +5,11 @@
 var express = require('express');
 var app = express();
 
+app.use((req,res,next)=>{
+  console.log(req.method+" "+req.path+" - "+req.ip);
+  next();
+})
+
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
@@ -30,3 +35,9 @@ app.get("/api/hello", function (req, res) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+//try printing out all params in req
+app.get("/api/whoami",(req,res)=>{
+  console.log(req.ip);
+});
+
